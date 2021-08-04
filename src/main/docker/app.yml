@@ -1,5 +1,5 @@
 # This configuration is intended for development purpose, it's **your** responsibility to harden it for production
-version: '3.8'
+version: '3.3'
 services:
   peopleflow-app:
     image: peopleflow
@@ -10,6 +10,8 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:mysql://peopleflow-mysql:3306/peopleflow?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true
       - SPRING_LIQUIBASE_URL=jdbc:mysql://peopleflow-mysql:3306/peopleflow?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true
       - JHIPSTER_SLEEP=30 # gives time for other services to boot before the application
+    ports:
+      - 127.0.0.1:8081:8081
   peopleflow-mysql:
     image: mysql:8.0.23
     # volumes:

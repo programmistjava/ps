@@ -36,6 +36,8 @@
     "nativeLanguage": "en",
     "packageFolder": "com/peopleflow/app",
     "jwtSecretKey": "NGEyMmNkZTk3ZmFmNzQzODA2YzcxMmFlOGY4ZjcwMTJiNzI5Y2QyNjAwNjM2M2U0MDNmODZiMDJiODNjNmRkMTcwNjYyMDkyOTUyNDI4NjllMDhmNzU1OTQyZWNlZGM5MDkyZmY5MDFkMDY1MGM5N2YyMmYyM2I5M2VhNGExMTg=",
-    "languages": ["en", "fr"]
+    "languages": ["en", "fr"],
+    "entities": ["Employee"],
+    "lastLiquibaseTimestamp": 1628078274000
   }
 }

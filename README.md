@@ -1,9 +1,74 @@
 # peopleFlow
 
-This application was generated using JHipster 7.0.1, you can find documentation and help at [https://www.jhipster.tech/documentation-archive/v7.0.1](https://www.jhipster.tech/documentation-archive/v7.0.1).
+To start your application in the dev profile, run:
 
-This is a "microservice" application intended to be part of a microservice architecture, please refer to the [Doing microservices with JHipster][] page of the documentation for more information.
-This application is configured for Service Discovery and Configuration with . On launch, it will refuse to start if it is not able to connect to .
+./gradlew
+
+http://localhost:8081/
+
+Use cred: login: user passwd: user and port 8081
+
+ get request  http://localhost:8081/api/employees
+ 
+ outputs the test date
+
+
+
+Build  Restful API doing the following:
+
+- An Endpoint to support adding an employee with very basic employee details including (name, contract information, age, you can decide.) With initial state "ADDED" which incidates that the employee isn't active yet.
+
+DONE - SEE  EmployeeResource controller class createEmployee method
+
+Post request  http://localhost:8081/api/employees
+
+- Another endpoint to change the state of a given employee to "In-CHECK" or any of the states defined above in the state machine
+
+DONE - SEE  EmployeeResource controller class updateStatusEmployee method
+
+get  request http://localhost:8081/api/employees/3/state/ACTIVE 
+
++ CRUD avalability was implemeted for Employee entity.
+ 
+
+
+Please provide a solution with the  above features with the following consideration.
+
+- Being simply executable with the least effort Ideally using Docker and docker-compose or any smailiar approach.
+
+DONE
+Please 
+./gradlew bootJar -Pdev jibDockerBuild 
+docker-compose -f src/main/docker/appDev.yml up -d
+(to start with dev profile)
+
+And 
+
+./gradlew bootJar -Pprod jibDockerBuild 
+docker-compose -f src/main/docker/app.yml up -d
+(to start with prod profile)
+
+ 
+- For state machine could be as simple as of using ENUM or by using https://projects.spring.io/spring-statemachine/ 
+- Please provide testing for your solution.
+
+DONE
+ 
+gradlew test integrationTest jacocoTestReport
+
+- Providing an API Contract e.g. OPENAPI spec. is a big plus 
+
+DONE
+OpenAPI documentation endpoint for those APIs is at /v3/api-docs
+
+
+Added security
+Added docker image generation and docker compose support  
+Added sonar
+Added liquibase
+Added spring profiles for dev, prod with full properties setting.
+Using mysql for prod 
+Using h2 in memory for dev
 
 ## Development
 
@@ -13,7 +78,6 @@ To start your application in the dev profile, run:
 ./gradlew
 ```
 
-For further instructions on how to develop with JHipster, have a look at [Using JHipster in development][].
 
 ## Building for production
 
@@ -100,18 +164,5 @@ Then run:
 docker-compose -f src/main/docker/app.yml up -d
 ```
 
-For more information refer to [Using Docker and Docker-Compose][], this page also contains information on the docker-compose sub-generator (`jhipster docker-compose`), which is able to generate docker configurations for one or several JHipster applications.
 
-## Continuous Integration (optional)
 
-To configure CI for your project, run the ci-cd sub-generator (`jhipster ci-cd`), this will let you generate configuration files for a number of Continuous Integration systems. Consult the [Setting up Continuous Integration][] page for more information.
-
-[jhipster homepage and latest documentation]: https://www.jhipster.tech
-[jhipster 7.0.1 archive]: https://www.jhipster.tech/documentation-archive/v7.0.1
-[doing microservices with jhipster]: https://www.jhipster.tech/documentation-archive/v7.0.1/microservices-architecture/
-[using jhipster in development]: https://www.jhipster.tech/documentation-archive/v7.0.1/development/
-[using docker and docker-compose]: https://www.jhipster.tech/documentation-archive/v7.0.1/docker-compose
-[using jhipster in production]: https://www.jhipster.tech/documentation-archive/v7.0.1/production/
-[running tests page]: https://www.jhipster.tech/documentation-archive/v7.0.1/running-tests/
-[code quality page]: https://www.jhipster.tech/documentation-archive/v7.0.1/code-quality/
-[setting up continuous integration]: https://www.jhipster.tech/documentation-archive/v7.0.1/setting-up-ci/
