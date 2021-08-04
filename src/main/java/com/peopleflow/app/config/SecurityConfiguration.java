@@ -5,6 +5,7 @@ import com.peopleflow.app.security.jwt.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -17,12 +18,13 @@ import org.springframework.security.web.header.writers.ReferrerPolicyHeaderWrite
 import org.zalando.problem.spring.web.advice.security.SecurityProblemSupport;
 import tech.jhipster.config.JHipsterProperties;
 
-//@EnableWebSecurity
-//@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
+@Profile("prod")
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 @Import(SecurityProblemSupport.class)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    /*
+
     private final JHipsterProperties jHipsterProperties;
 
     private final TokenProvider tokenProvider;
@@ -84,12 +86,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return new JWTConfigurer(tokenProvider);
     }
 
-     */
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-            .inMemoryAuthentication()
-            .withUser("user").password("").roles("USER", "ADMIN");
-    }
+
+
 }

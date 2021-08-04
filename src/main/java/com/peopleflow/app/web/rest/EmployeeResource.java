@@ -167,7 +167,7 @@ public class EmployeeResource {
         }
 
 
-        State sta = State.getState(state).map(s -> s).orElseThrow(() -> new BadRequestAlertException("Invalid state value ", ENTITY_NAME, "idinvalstate"));
+        State sta = State.getState(state).orElseThrow(() -> new BadRequestAlertException("Invalid state value ", ENTITY_NAME, "idinvalstate"));
 
         Optional<EmployeeDTO> result = employeeService.stateUpdate(id, sta);
 
