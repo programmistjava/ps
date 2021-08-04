@@ -142,8 +142,7 @@ public class EmployeeResource {
      * @param id    the id of the employeeDTO to save.
      * @param state the employeeDTO to update.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated employeeDTO,
-     * or with status {@code 400 (Bad Request)} if the employeeDTO is not valid,
-     * or with status {@code 404 (Not Found)} if the employeeDTO is not found,
+     *
      * or with status {@code 500 (Internal Server Error)} if the employeeDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
