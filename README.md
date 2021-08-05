@@ -26,7 +26,7 @@ Post request  http://localhost:8081/api/employees
 
 DONE - SEE  EmployeeResource controller class updateStatusEmployee method
 
-get  request http://localhost:8081/api/employees/3/state/ACTIVE 
+patch  request http://localhost:8081/api/employees/3/state/ACTIVE 
 
 + CRUD availability was implemented for Employee entity.
  
@@ -62,14 +62,14 @@ DONE
 OpenAPI documentation endpoint for those APIs is at /v3/api-docs
 
 
-Added security (form authentication for dev profile and jwt for prod)
-Added docker image generation and docker compose support  
-Added sonar
-Added liquibase
-Added spring profiles for dev, prod with full properties setting.
-Added Hazelcast cache 
-Using mysql for prod 
-Using h2 in memory for dev
+### Added security (form authentication for dev profile and jwt for prod)
+### Added docker image generation and docker compose support  
+### Added sonar
+### Added liquibase
+### Added spring profiles for dev, prod with full properties setting.
+### Added Hazelcast cache 
+### Using mysql for prod 
+### Using h2 in memory for dev
 
 ## Development
 

@@ -146,9 +146,10 @@ public class EmployeeResource {
      * or with status {@code 500 (Internal Server Error)} if the employeeDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @GetMapping(value = "/employees/{id}/state/{state}")
+    @PatchMapping(value = "/employees/{id}/state/{state}")
     public ResponseEntity<EmployeeDTO> updateStatusEmployee(
-        @PathVariable(value = "id", required = false) final Long id, @PathVariable(value = "state", required = false) final String state
+        @PathVariable(value = "id", required = false) final Long id, @PathVariable(value = "state", required = false) final String state,
+        @NotNull @RequestBody EmployeeDTO employeeDTO
     ) throws URISyntaxException {
         log.debug("REST request to updateStatusEmployee : {}, {}", id, state);
 
@@ -160,11 +161,16 @@ public class EmployeeResource {
             throw new BadRequestAlertException("Invalid state", ENTITY_NAME, "statenull");
         }
 
+        if (employeeDTO.getId() == null) {
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+        }
+        if (!Objects.equals(id, employeeDTO.getId())) {
+            throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
+        }
 
         if (!employeeRepository.existsById(id)) {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
-
 
         State sta = State.getState(state).orElseThrow(() -> new BadRequestAlertException("Invalid state value ", ENTITY_NAME, "idinvalstate"));
 
