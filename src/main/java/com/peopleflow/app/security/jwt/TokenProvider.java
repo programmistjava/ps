@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import tech.jhipster.config.JHipsterProperties;
 
-@Profile("prod")
+@Profile("!dev")
 @Component
 public class TokenProvider {
 

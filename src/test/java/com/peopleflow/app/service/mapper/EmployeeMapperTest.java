@@ -9,8 +9,8 @@ class EmployeeMapperTest {
 
     private EmployeeMapper employeeMapper;
 
-    //@BeforeEach
+    @BeforeEach
     public void setUp() {
-       // employeeMapper = new EmployeeMapperImpl();
+        employeeMapper = new EmployeeMapperImpl();
     }
 }
