@@ -65,6 +65,7 @@ class EmployeeResourceIT {
 
     private static final String ENTITY_API_URL = "/api/employees";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
+    private static final String ENTITY_API_URL_ID_STATE = ENTITY_API_URL + "/{id}/state/{state}";
 
     private static Random random = new Random();
     private static AtomicLong count = new AtomicLong(random.nextInt() + (2 * Integer.MAX_VALUE));
@@ -151,6 +152,48 @@ class EmployeeResourceIT {
         assertThat(testEmployee.getCity()).isEqualTo(DEFAULT_CITY);
         assertThat(testEmployee.getCountry()).isEqualTo(DEFAULT_COUNTRY);
         assertThat(testEmployee.getState()).isEqualTo(DEFAULT_STATE);
+    }
+
+    @Test
+    @Transactional
+    void partialUpdateStateEmployeeWithPatch() throws Exception {
+        // Initialize the database
+        employeeRepository.saveAndFlush(employee);
+
+        int databaseSizeBeforeUpdate = employeeRepository.findAll().size();
+
+        // Update the employee using partial update
+        Employee partialUpdatedEmployee = new Employee();
+        partialUpdatedEmployee.setId(employee.getId());
+
+        partialUpdatedEmployee
+            .lastName(DEFAULT_LAST_NAME)
+            .email(DEFAULT_EMAIL)
+            .addressLine1(DEFAULT_ADDRESS_LINE_1)
+            .country(DEFAULT_COUNTRY)
+            .state(DEFAULT_STATE);
+
+        restEmployeeMockMvc
+            .perform(
+                patch(ENTITY_API_URL_ID_STATE, partialUpdatedEmployee.getId(), UPDATED_STATE.getState())
+                    .contentType("application/merge-patch+json")
+                    .content(TestUtil.convertObjectToJsonBytes(partialUpdatedEmployee))
+            )
+            .andExpect(status().isOk());
+
+        // Validate the Employee in the database
+        List<Employee> employeeList = employeeRepository.findAll();
+        assertThat(employeeList).hasSize(databaseSizeBeforeUpdate);
+        Employee testEmployee = employeeList.get(employeeList.size() - 1);
+        assertThat(testEmployee.getFirstName()).isEqualTo(DEFAULT_FIRST_NAME);
+        assertThat(testEmployee.getLastName()).isEqualTo(DEFAULT_LAST_NAME);
+        assertThat(testEmployee.getAge()).isEqualTo(DEFAULT_AGE);
+        assertThat(testEmployee.getEmail()).isEqualTo(DEFAULT_EMAIL);
+        assertThat(testEmployee.getPhone()).isEqualTo(DEFAULT_PHONE);
+        assertThat(testEmployee.getAddressLine1()).isEqualTo(DEFAULT_ADDRESS_LINE_1);
+        assertThat(testEmployee.getCity()).isEqualTo(DEFAULT_CITY);
+        assertThat(testEmployee.getCountry()).isEqualTo(DEFAULT_COUNTRY);
+        assertThat(testEmployee.getState()).isEqualTo(UPDATED_STATE);
     }
 
     @Test
